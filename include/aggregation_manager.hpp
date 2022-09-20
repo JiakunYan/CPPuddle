@@ -30,6 +30,7 @@
 #include <boost/core/demangle.hpp>
 #include <boost/format.hpp>
 
+#include "../include/common_wrapper.hpp"
 #include "../include/buffer_manager.hpp"
 #include "../include/stream_manager.hpp"
 
@@ -88,15 +89,6 @@ template <class... T> void print_tuple(const std::tuple<T...> &_tup) {
 
 //===============================================================================
 //===============================================================================
-template <typename Executor, typename F, typename... Ts>
-void exec_post_wrapper(Executor & exec, F &&f, Ts &&...ts) {
-  exec.post(std::forward<F>(f), std::forward<Ts>(ts)...);
-}
-
-template <typename Executor, typename F, typename... Ts>
-hpx::lcos::future<void> exec_async_wrapper(Executor & exec, F &&f, Ts &&...ts) {
-  return exec.async_execute(std::forward<F>(f), std::forward<Ts>(ts)...);
-}
 
 /// Manages the launch conditions for aggregated function calls
 /// type/value-errors

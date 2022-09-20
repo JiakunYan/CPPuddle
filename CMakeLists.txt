@@ -97,7 +97,7 @@ target_include_directories(buffer_manager INTERFACE
 
 add_library(stream_manager SHARED src/stream_manager_definitions.cpp)
 target_link_libraries(stream_manager
-    PRIVATE )
+    PRIVATE HPX::hpx)
 target_include_directories(stream_manager INTERFACE 
 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> 
 $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include> 
@@ -144,6 +144,7 @@ if (CPPUDDLE_WITH_TESTS)
       add_executable(
         stream_test
         tests/stream_test.cpp
+        include/common_wrapper.hpp
         include/stream_manager.hpp)
       target_link_libraries(stream_test
         PRIVATE HPX::hpx buffer_manager stream_manager)
@@ -183,6 +184,7 @@ if (CPPUDDLE_WITH_TESTS)
           COMPONENT_DEPENDENCIES iostreams
           SOURCES
           tests/work_aggregation_test.cpp
+          include/common_wrapper.hpp
           include/aggregation_manager.hpp
           include/buffer_manager.hpp
           include/stream_manager.hpp
@@ -195,6 +197,7 @@ if (CPPUDDLE_WITH_TESTS)
           COMPONENT_DEPENDENCIES iostreams
           SOURCES
           tests/work_aggregation_cpu_triad.cpp
+          include/common_wrapper.hpp
           include/aggregation_manager.hpp
           include/buffer_manager.hpp
           include/stream_manager.hpp
@@ -207,6 +210,7 @@ if (CPPUDDLE_WITH_TESTS)
           COMPONENT_DEPENDENCIES iostreams
           SOURCES
           tests/work_aggregation_cuda_triad.cpp
+          include/common_wrapper.hpp
           include/aggregation_manager.hpp
           include/buffer_manager.hpp
           include/stream_manager.hpp

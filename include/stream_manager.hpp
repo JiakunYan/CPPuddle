@@ -15,6 +15,8 @@
 #include <queue>
 #include <type_traits>
 
+#include "../include/common_wrapper.hpp"
+
 //#include <cuda_runtime.h>
 // #include <hpx/compute/cuda/target.hpp>
 // #include <hpx/include/compute.hpp>
@@ -361,12 +363,14 @@ public:
 
   template <typename F, typename... Ts>
   inline decltype(auto) post(F &&f, Ts &&... ts) {
-    return interface.post(std::forward<F>(f), std::forward<Ts>(ts)...);
+    return exec_post_wrapper(interface, std::forward<F>(f),
+                             std::forward<Ts>(ts)...);
   }
 
   template <typename F, typename... Ts>
   inline decltype(auto) async_execute(F &&f, Ts &&... ts) {
-    return interface.async_execute(std::forward<F>(f), std::forward<Ts>(ts)...);
+    return exec_async_wrapper(interface, std::forward<F>(f),
+                              std::forward<Ts>(ts)...);
   }
 
   inline size_t get_gpu_id() noexcept { return interface.get_gpu_id(); }
